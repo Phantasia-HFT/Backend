@@ -156,8 +156,4 @@ def get_content(user_input):
     
     return full_content
 
-# Call the function with user_input
-user_input = "Spider man and harry potter interacting"
-result = get_content(user_input)
-print(result)
 
