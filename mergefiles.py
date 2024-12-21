@@ -22,6 +22,16 @@ def merge_audio_files(input_folder, output_file):
         print(f"All files merged successfully into {output_file}")
     except Exception as e:
         print(f"An error occurred: {e}")
+    finally:
+        try:
+            for file_name in os.listdir(input_folder):
+                file_path = os.path.join(input_folder, file_name)
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+                    print(f"Removed {file_path}")
+        except Exception as e:
+            print(f"Error while cleaning up the folder: {e}")
+
 
 if __name__ == "__main__":
     input_folder = "./audio"
