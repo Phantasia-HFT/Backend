@@ -7,6 +7,7 @@ import time
 from elevenlabs import ElevenLabs
 from request import convert_text_to_speech
 from  dotenv import load_dotenv
+from mergefiles import merge_audio_files
 
 load_dotenv()
 voice_id1=os.getenv("voicemodel_id_phil")
@@ -43,7 +44,7 @@ def get_script():
                     count += 1  # Increment count for unique filenames
             else:
                 print(f"Skipped invalid element: {element}")
-        
+        merge_audio_files("./audio","./finalaudio.mp3")
         return jsonify({"success": "Generated audio", "file_count": count}), 200
 
 @app.route("/transcribe", methods=["POST"])
