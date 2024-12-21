@@ -19,7 +19,7 @@ class State(TypedDict):
     messages: Annotated[list, add_messages]
 
 llm = ChatGroq(
-    model="llama-3.2-3b-preview",
+    model="llama3-70b-8192",
     temperature=0,
     max_tokens=None,
     timeout=None,
@@ -118,7 +118,7 @@ def self_critique_and_revise(state: State) -> State:
 
 # Graph Builder
 graph_builder = StateGraph(State)
-tool = TavilySearchResults(max_results=2)
+tool = TavilySearchResults(max_results=10)
 tools = [tool]
 llm_with_tools = llm.bind_tools(tools)
 
@@ -157,7 +157,7 @@ def get_content(user_input):
     return full_content
 
 # Call the function with user_input
-user_input = "Conversation between Barney from How I Met Your Mother and Walter from Breaking Bad."
+user_input = "Spider man and harry potter interacting"
 result = get_content(user_input)
 print(result)
 
