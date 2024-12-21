@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify , send_file
 from agents import get_content
 import os
 from groq import Groq
@@ -45,7 +45,12 @@ def get_script():
             else:
                 print(f"Skipped invalid element: {element}")
         merge_audio_files("./audio","./finalaudio.mp3")
-        return jsonify({"success": "Generated audio", "file_count": count}), 200
+
+        output_file = "./finalaudio.mp3"
+        if os.path.exists(output_file):
+            return send_file(output_file, as_attachment=True, download_name="finalaudio.mp3", mimetype="audio/mpeg")
+        else:
+            return jsonify({"error": "Failed to generate audio file"}), 500
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe_audio():
