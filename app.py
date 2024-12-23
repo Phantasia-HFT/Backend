@@ -8,6 +8,8 @@ from elevenlabs import ElevenLabs
 from request import convert_text_to_speech
 from  dotenv import load_dotenv
 from mergefiles import merge_audio_files
+from flask_cors import CORS
+import shutil
 
 load_dotenv()
 voice_id1=os.getenv("voicemodel_id_phil")
@@ -15,6 +17,7 @@ voice_id2=os.getenv("voicemodel_id_walter")
 
 
 app = Flask(__name__)
+CORS(app)
 client=Groq()
 @app.route('/getscript', methods=['POST'])
 def get_script():
@@ -31,7 +34,7 @@ def get_script():
         
         count = 0  # Initialize count for unique filenames
         for element in formatted_script:
-            speaker, dialogue = element[0], element[1]
+            speaker, dialogue = element[0].strip("*"), element[1]
             
             if speaker and dialogue:
                 print(f"Processing: {speaker}: {dialogue}")
@@ -45,12 +48,23 @@ def get_script():
             else:
                 print(f"Skipped invalid element: {element}")
         merge_audio_files("./audio","./finalaudio.mp3")
+        source_path = "/home/alex/Desktop/Backend/finalaudio.mp3"
+        destination_path = "/home/alex/Frontend/public/finalaudio.mp3"
 
-        output_file = "./finalaudio.mp3"
-        if os.path.exists(output_file):
-            return send_file(output_file, as_attachment=True, download_name="finalaudio.mp3", mimetype="audio/mpeg")
-        else:
-            return jsonify({"error": "Failed to generate audio file"}), 500
+        try:
+    # Move the file
+            shutil.move(source_path, destination_path)
+            print(f"File moved successfully from {source_path} to {destination_path}")
+        except FileNotFoundError:
+            print("Source file does not exist.")
+        except PermissionError:
+            print("Permission denied. Please check your access rights.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        return jsonify({"message": "Script processed successfully"}), 200
+
+
+            
 
 @app.route("/transcribe", methods=["POST"])
 def transcribe_audio():

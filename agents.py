@@ -60,6 +60,7 @@ def critique_script(state: State) -> State:
         "Evaluate the following script based on emotional depth, natural dialogue, pacing, and clarity. "
         "Provide a score from 1 to 10 for each of these criteria, and suggest improvements for each aspect. "
         "Return the critique in the following format:\n"
+        "The name must only consist of alphabets dont include any symbols like * before and after it"
         "Emotional Depth: <score> (<suggested improvement>)\n"
         "Natural Dialogue: <score> (<suggested improvement>)\n"
         "Pacing: <score> (<suggested improvement>)\n"
