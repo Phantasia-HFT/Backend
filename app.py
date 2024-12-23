@@ -5,7 +5,7 @@ from groq import Groq
 from helper import parser
 import time
 from elevenlabs import ElevenLabs
-from request import convert_text_to_speech
+from request import convert_text_to_speech, upload_to_cloudinary
 from  dotenv import load_dotenv
 from mergefiles import merge_audio_files
 from flask_cors import CORS
@@ -48,20 +48,12 @@ def get_script():
             else:
                 print(f"Skipped invalid element: {element}")
         merge_audio_files("./audio","./finalaudio.mp3")
-        source_path = "/home/alex/Desktop/Backend/finalaudio.mp3"
-        destination_path = "/home/alex/Frontend/public/finalaudio.mp3"
-
-        try:
+        audio_url = upload_to_cloudinary("./finalaudio.mp3")
     # Move the file
-            shutil.move(source_path, destination_path)
-            print(f"File moved successfully from {source_path} to {destination_path}")
-        except FileNotFoundError:
-            print("Source file does not exist.")
-        except PermissionError:
-            print("Permission denied. Please check your access rights.")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-        return jsonify({"message": "Script processed successfully"}), 200
+        if audio_url:
+            return jsonify({"message": "Script processed successfully", "audio_url": audio_url}), 200
+        else:
+            return jsonify({"error": "Failed to upload audio to cloud"}), 500
 
 
             
