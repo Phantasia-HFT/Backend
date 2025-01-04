@@ -32,7 +32,7 @@ This isn’t just fan fiction—it’s immersive storytelling.
 ### Voice Sample 🎙️  
 Listen to a sample generated voice below about **Phil Dunphy** showing a house to **Walter White**:  
 
-[🎧 **Click here to listen to the voice sample!**🔊](./assets/homepage1.mp3)
+[🎧 **Click here to listen to the voice sample!**🔊](./finalaudio.mp3)
 
 
 ## License
