@@ -34,21 +34,6 @@ Listen to a sample generated voice below about **Phil Dunphy** showing a house t
 
 [🎧 **Click here to listen to the voice sample!**🔊](./assets/homepage1.mp3)
 
----
-
-## Images  
-
-<p align="center">  
-  <img src="/assets/landing.png" alt="Landing Page" width="1200">  
-  <img src="/assets/script_generation.png" alt="Script Generation Page" width="1200">  
-</p>  
-
-<!-- Second Row -->  
-<p align="center">  
-  <img src="/assets/example.png" alt="Example Output" width="1200">  
-</p>  
-
----
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](/license/MIT.md) file for details.
